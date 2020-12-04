@@ -28,13 +28,22 @@ import axios from 'axios';
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
+const followersArray = ['tetondan', 'dustinmyers', 'justsml', 'luishrd', 'bigknell'];
 
-const followersArray = [];
+followersArray.forEach(cb => {
+  axios
+  .get('https://api.github.com/users/' + cb)
+  .then(resolves => {
+   const newCard = cardMaker(resolves.data);
+   document.querySelector('.cards').appendChild(newCard);
+  })
+})
+
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
-    
+
     <div class="card">
       <img src={image url of user} />
       <div class="card-info">
@@ -52,19 +61,58 @@ const followersArray = [];
 */
 /*
   List of LS Instructors Github username's:
-    tetondan
-    dustinmyers
-    justsml
-    luishrd
-    bigknell
+    
 */
-axios.get(https://api.github.com/users/OscFig)
-
-function cardMaker(){
+function cardMaker(obj){
+//      -Instantiate-                           
   const cardDiv = document.createElement('div');
    const cardImg = document.createElement('img');
    const infoDiv = document.createElement('div');
     const realName = document.createElement('h3');
-    const userName = document.createElement('p')
-    const 
+    const userName = document.createElement('p');
+    const locationP = document.createElement('p');
+    const profile = document.createElement('p');
+      const link = document.createElement('a');
+    const follower = document.createElement('p');
+    const following = document.createElement('p');
+    const bio = document.createElement('p');
+
+//      -appendChild-
+cardDiv.appendChild(cardImg);
+cardDiv.appendChild(infoDiv);
+infoDiv.appendChild(realName);
+infoDiv.appendChild(userName);
+infoDiv.appendChild(locationP);
+infoDiv.appendChild(profile);
+profile.appendChild(link);
+infoDiv.appendChild(follower);
+infoDiv.appendChild(following);
+infoDiv.appendChild(bio);
+
+//      -classlist-
+cardDiv.classList.add('card');
+infoDiv.classList.add('card-info');
+realName.classList.add('name');
+userName.classList.add('username');
+
+//      -img-
+cardImg.src = obj.avatar_url;
+//      -textContent-
+realName.textContent = obj.name;
+userName.textContent = obj.login;
+locationP.textContent = 'Location: ' + obj.location;
+link.textContent = obj.html_url;
+// link.setAttribute('href', 'https://github.com/OscFig');
+link.href = obj.html_url //   both work
+follower.textContent = 'Followers: ' + obj.followers;
+following.textContent = 'Following: ' + obj.following;
+bio.textContent = 'Bio: ' + obj.bio;
+return cardDiv;
 }
+axios.get('https://api.github.com/users/oscfig')
+  .then((resolve) => {
+    const cardData = resolve.data
+    const makeCard = cardMaker(cardData);
+    document.querySelector('.cards').appendChild(makeCard);
+  });
+  
