@@ -1,3 +1,4 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
@@ -33,7 +34,7 @@ const followersArray = [];
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
-
+    
     <div class="card">
       <img src={image url of user} />
       <div class="card-info">
@@ -49,7 +50,6 @@ const followersArray = [];
       </div>
     </div>
 */
-
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -58,3 +58,13 @@ const followersArray = [];
     luishrd
     bigknell
 */
+axios.get(https://api.github.com/users/OscFig)
+
+function cardMaker(){
+  const cardDiv = document.createElement('div');
+   const cardImg = document.createElement('img');
+   const infoDiv = document.createElement('div');
+    const realName = document.createElement('h3');
+    const userName = document.createElement('p')
+    const 
+}
